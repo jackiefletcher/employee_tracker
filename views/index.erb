@@ -1,0 +1,35 @@
+<form action="/divisions" method="post">
+  <label class="form-control" for="name"> Enter a Division's Name</label>
+  <input type="text" name="name" class="form-control" id="name">
+
+  <button type="submit">Add Division</button>
+</form>
+
+<form action="/employees" method="post">
+  <label for="division_id">Select a division</label>
+  <select id="division_id" name="division_id" type="text">
+    <% @divisions.each() do |division| %>
+      <option value="<%= division.id() %>"> <%= division.name() %> </option>
+      <% end %>
+    </select>
+
+  <label for="name">Enter an employee's name</label>
+  <input type="text" name="name" id="name">
+
+  <button type="submit">Add Employee</button>
+</form>
+
+
+<% if @divisions.any?() %>
+<ul>
+  <% @divisions.each() do |division| %>
+    <li><a href="/divisions/<%= division.id %>"><%= division.name() %></a></li>
+      <ul>
+        <% division.employees().each() do |employee| %>
+        <li><%= employee.name() %></li>
+        <% end %>
+      </ul>
+  <% end %>
+
+</ul>
+<% end %>
