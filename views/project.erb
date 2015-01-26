@@ -1,0 +1,20 @@
+
+Project: <%= @project.name() %>
+Employee: <%= @project.employee().name() %>
+
+<form action="/project/edit_name/<%= @project.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label class="form-control" for="name"> Update a Project's Name</label>
+  <input type="text" name="name" class="form-control" id="name">
+
+  <button type="submit">Update</button>
+</form>
+
+<form action="/project/edit_done/<%= @project.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label class="form-control" for="done"> Project Complete?</label>
+    <input type="radio" name="done" id="done" value="false" checked> No </br>
+    <input type="radio" name="done" id="done" value="true"> Yes </br>
+
+  <button type="submit">Update</button>
+</form>

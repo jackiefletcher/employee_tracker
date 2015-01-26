@@ -1,10 +1,40 @@
-<form action="/divisions" method="post">
-  <label class="form-control" for="name"> Enter a Division's Name</label>
-  <input type="text" name="name" class="form-control" id="name">
 
-  <button type="submit">Add Division</button>
+<% if @divisions.any?() %>
+<ul>
+  <% @divisions.each() do |division| %>
+  <li><a href="/divisions/<%= division.id %>"><%= division.name() %></a></li>
+  <ul>
+    <% division.employees().each() do |employee| %>
+    <li><%= employee.name() %></li>
+    <ul><lh>Current Projects:</lh>
+      <% employee.projects().not_done().each() do |project| %>
+      <li> <a href="/projects/<%= project.id %>"><%= project.name() %></a>, <%= project.created_at() %> </li>
+      <% end %>
+    </ul>
+    <br />
+    <ul><lh>Completed Projects:</lh>
+      <% employee.projects().done().each() do |project| %>
+      <li> <strike><a href="/projects/<%= project.id %>"><%= project.name() %></a>, <%= project.created_at() %></strike></li>
+      <% end %>
+    </ul>
+
+    <% end %>
+  </ul>
+  <% end %>
+
+</ul>
+<% end %>
+
+<h3> Add a Division </h3>
+<form action="/divisions" method="post">
+  <div class = "form-group">
+    <label for="name"> Enter a Division's Name</label>
+    <input type="text" name="name" class="form-control" id="name">
+  </div>
+  <button class="btn" type="submit">Add Division</button>
 </form>
 
+<h3> Add an Employee to a Division</h3>
 <form action="/employees" method="post">
   <label for="division_id">Select a division</label>
   <select id="division_id" name="division_id" type="text">
@@ -12,24 +42,24 @@
       <option value="<%= division.id() %>"> <%= division.name() %> </option>
       <% end %>
     </select>
-
+</br>
   <label for="name">Enter an employee's name</label>
   <input type="text" name="name" id="name">
 
-  <button type="submit">Add Employee</button>
+  <button class="btn" type="submit">Add Employee</button>
 </form>
 
+<h3>Add a Project to an Employee</h3>
+<form action="/projects" method="post">
+  <label for="employee_id">Select an employee</label>
+  <select id="employee_id" name="employee_id" type="text">
+    <% @employees.each() do |employee| %>
+    <option value="<%= employee.id() %>"> <%= employee.name() %> </option>
+    <% end %>
+  </select>
+</br>
+  <label for="name">Enter a Project's name</label>
+  <input type="text" name="name" id="name">
 
-<% if @divisions.any?() %>
-<ul>
-  <% @divisions.each() do |division| %>
-    <li><a href="/divisions/<%= division.id %>"><%= division.name() %></a></li>
-      <ul>
-        <% division.employees().each() do |employee| %>
-        <li><%= employee.name() %></li>
-        <% end %>
-      </ul>
-  <% end %>
-
-</ul>
-<% end %>
+  <button class="btn" type="submit">Add Project </button>
+</form>
