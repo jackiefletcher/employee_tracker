@@ -63,3 +63,25 @@
 
   <button class="btn" type="submit">Add Project </button>
 </form>
+
+
+<h3>Add a Group Project</h3>
+<form action="/group_projects" method="post">
+  <label for="employee_id">Select employee one:</label>
+  <select id="employee_id" name="employee_id" type="text">
+    <% @employees.each() do |employee| %>
+    <option value="<%= employee.id() %>"> <%= employee.name() %> </option>
+    <% end %>
+  </select>
+  <label for="employee_id2">Select employee two:</label>
+  <select id="employee_id2" name="employee_id2" type="text">
+    <% @employees.each() do |employee| %>
+    <option value="<%= employee.id() %>"> <%= employee.name() %> </option>
+    <% end %>
+  </select>
+</br>
+<label for="name">Enter a Project's name</label>
+<input type="text" name="name" id="name">
+
+<button class="btn" type="submit">Add Project </button>
+</form>

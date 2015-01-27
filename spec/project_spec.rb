@@ -1,11 +1,11 @@
 require('spec_helper')
 
 describe(Project) do
-  it("tells which employee it belongs to")do
-    employee = Employee.create({:name => "Jonny", :division_id => 1})
-    project1 = Project.create({:name => "Fry the shells", :done => false, :employee_id => employee.id})
-    expect(project1.employee()).to(eq(employee))
-  end
+  # it("tells which employee it belongs to")do
+  #   employee = Employee.create({:name => "Jonny", :division_id => 1})
+  #   project1 = Project.create({:name => "Fry the shells", :done => false, :employee_id => employee.id})
+  #   expect(project1.employee()).to(eq(employee))
+  # end
 
   describe('.not_done') do
     it("returns the projects that are not done") do
@@ -27,6 +27,14 @@ describe(Project) do
       done_projects = [done_project1, done_project2]
       expect(Project.done()).to(eq(done_projects))
     end
+  end
+
+  it("adds a project to multiple employees") do
+    employee1 = Employee.create({:name => "Jonny", :division_id => 1})
+    employee2 = Employee.create({:name => "Jimmy", :division_id => 1})
+    project1 = Project.create({:name => "Fry the shells", :done => "false", :employee_ids => [employee1.id, employee2.id]})
+    # employee2.update(:project_ids => [project1.id])
+    expect(project1.employees()).to(eq([employee1, employee2]))
   end
 
 end

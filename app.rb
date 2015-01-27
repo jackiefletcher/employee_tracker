@@ -42,6 +42,19 @@ post('/projects') do
   redirect('/')
 end
 
+post('/group_projects') do
+  name = params.fetch('name')
+  employee_id = params.fetch('employee_id').to_i()
+  employee2_id = params.fetch('employee_id2').to_i()
+  project = Project.create({:name => name, :done => false, :employee_id => employee_id})
+  employee1 = Employee.find(employee_id)
+  employee2 = Employee.find(employee2_id)
+  employees = [employee1, employee2]
+  project.update({:employee_id => employees})
+  redirect('/')
+end
+
+
 get('/projects/:id') do
   @project = Project.find(params.fetch('id').to_i())
   erb(:project)
