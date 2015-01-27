@@ -38,7 +38,7 @@ end
 post('/projects') do
   name = params.fetch('name')
   employee_id = params.fetch('employee_id').to_i()
-  project = Project.create({:name => name, :done => false, :employee_id => employee_id})
+  project = Project.create({:name => name, :done => false})
   redirect('/')
 end
 
@@ -46,11 +46,11 @@ post('/group_projects') do
   name = params.fetch('name')
   employee_id = params.fetch('employee_id').to_i()
   employee2_id = params.fetch('employee_id2').to_i()
-  project = Project.create({:name => name, :done => false, :employee_id => employee_id})
-  employee1 = Employee.find(employee_id)
-  employee2 = Employee.find(employee2_id)
-  employees = [employee1, employee2]
-  project.update({:employee_id => employees})
+  project = Project.create({:name => name, :done => false, :employee_ids => [employee_id, employee2_id]})
+  # employee1 = Employee.find(employee_id)
+  # employee2 = Employee.find(employee2_id)
+  # employees = [employee1, employee2]
+  # project.update({:employee_id => employees})
   redirect('/')
 end
 

@@ -1,6 +1,6 @@
 
 Project: <%= @project.name() %>
-Employee: <%= @project.employee().name() %>
+
 
 <form action="/project/edit_name/<%= @project.id %>" method="post">
   <input type="hidden" name="_method" value="patch">
